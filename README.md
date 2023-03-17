@@ -56,7 +56,7 @@ As mentioned previously, there are two ways to use this service. Each approach a
 # Description: >
 #  port-forwarding is not started for dependencies of app(s) with the provided omit name(s).
 #  The flag may be provided multiple times to omit multiple dependencies, like so:
-#  -o dep-1 -o dep-2 OR -o="dep-1,dep-2"
+#  -o dep-1 -o dep-2 OR -o="dep-1 dep-2"
 ```
 
 ### Run compose-forward
