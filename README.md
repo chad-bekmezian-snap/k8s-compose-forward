@@ -1,4 +1,4 @@
-# cs-port-forwarding
+# k8s-port-forwarding
 
 ## Table of contents
 - [Description](#description)
@@ -104,7 +104,7 @@ The following details the process of doing so:
    // filename: magician.go
    package app
    
-   import "github.com/chad-bekmezian-snap/cs-port-forwarding/manual/service"
+   import "github.com/chad-bekmezian-snap/k8s-port-forwarding/manual/service"
    
    var Magician = App{
         {
@@ -117,7 +117,7 @@ The following details the process of doing so:
     ```go
     package main
    
-   import "github.com/chad-bekmezian-snap/cs-port-forwarding/manual/app"     
+   import "github.com/chad-bekmezian-snap/k8s-port-forwarding/manual/app"     
    
     var appNameToApp = map[string]app.App{
         "magician":   app.Magician,
