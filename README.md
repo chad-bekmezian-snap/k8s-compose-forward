@@ -70,3 +70,49 @@ The docker-compose route allows for one more argument:
 2) Run `go mod tidy`
 3) Run `go build -o manualForward  cmd/manual-forward/*`
 4) Run `./forward --app {service name in docker-compose file} [--omit]`
+
+# Adding an application to manual-forward
+If you are using the manual-forward application route, you will undoubtedly need to add your own application and/or services. 
+The following details the process of doing so:
+
+1) Determine which services the application you are adding depends on.
+2) Add your service to the `manual/service/vars.go` file. If I were adding a k8s service named "magic", my addition would look like this:
+    ```go
+    package service
+    
+    var (
+        Magic = Service{
+            K8sName:      "service/magic",  // The name of the k8s service. 
+            K8sNamespace: "magic-services", // The namespace that the k8s service belongs to.
+            DefaultPort:  5013,             // The local port that port-forwarding should go through.
+            ForwardToPort: 8080,            // The port on the k8s service to forward to. If not provided, defaults to 80.
+        }
+    )
+    ```
+3) Add your application to the `manual/app/{applicationName}.go`. If I were adding an application named "magician", my addition would like this:
+    ```go
+   // filename: magician.go
+   package app
+   
+   import "github.com/chad-bekmezian-snap/cs-port-forwarding/manual/service"
+   
+   var Magician = App{
+        {
+            Service: service.Magic,
+            DefaultPort: 7373, // Can be used to override the DefaultPort specified in service.Magic
+        },
+   }
+   ```
+4) Expose your new application to the user by adding an entry to the `appNameToApp` map in `cmd/manual-forward/main.go`:
+    ```go
+    package main
+   
+   import "github.com/chad-bekmezian-snap/cs-port-forwarding/manual/app"     
+   
+    var appNameToApp = map[string]app.App{
+        "magician":   app.Magician,
+    }
+    ```
+
+5) Finally, run your new application like so:
+   `go run cmd/manual-forward/* --app magician`

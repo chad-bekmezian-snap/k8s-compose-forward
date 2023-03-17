@@ -3,7 +3,6 @@ package service
 type Service struct {
 	K8sName       string
 	K8sNamespace  string
-	PortFlagName  string
 	DefaultPort   int
 	ForwardToPort int
 }
