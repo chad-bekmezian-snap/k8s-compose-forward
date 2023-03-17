@@ -1,6 +1,6 @@
 package app
 
-import "github.com/chad-bekmezian-snap/cs-port-forwarding/manual/service"
+import "github.com/chad-bekmezian-snap/k8s-port-forwarding/manual/service"
 
 var OvrCExperience = App{
 	{

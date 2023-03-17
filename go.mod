@@ -1,4 +1,4 @@
-module github.com/chad-bekmezian-snap/cs-port-forwarding
+module github.com/chad-bekmezian-snap/k8s-port-forwarding
 
 go 1.19
 

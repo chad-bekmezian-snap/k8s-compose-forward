@@ -3,9 +3,9 @@ package main
 import (
 	"fmt"
 	"github.com/TwiN/go-color"
-	"github.com/chad-bekmezian-snap/cs-port-forwarding/forward"
-	"github.com/chad-bekmezian-snap/cs-port-forwarding/manual/app"
-	"github.com/chad-bekmezian-snap/cs-port-forwarding/manual/service"
+	"github.com/chad-bekmezian-snap/k8s-port-forwarding/forward"
+	"github.com/chad-bekmezian-snap/k8s-port-forwarding/manual/app"
+	"github.com/chad-bekmezian-snap/k8s-port-forwarding/manual/service"
 	"strings"
 	"sync"
 )
