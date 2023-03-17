@@ -15,9 +15,9 @@ type Service struct {
 	ContainerName string   `yaml:"container_name"`
 	Ports         []string `yaml:"ports"`
 	DependsOn     []string `yaml:"depends_on"`
-	K8sName       string
-	K8sNamespace  string
-	K8sPort       int
+	K8sName       string   `yaml:"-"`
+	K8sNamespace  string   `yaml:"-"`
+	K8sPort       int      `yaml:"-"`
 }
 
 func (s Service) FromPort() int {
