@@ -1,5 +1,15 @@
 # cs-port-forwarding
 
+## Table of contents
+- [Description](#description)
+  - [compose-forward](#compose-forward)
+  - [manual-forward](#manual-forward)
+- [Pre-requisites](#pre-requisites)
+- [Setup](#setup)
+- [Running](#running)
+  - [Running compose-forward](#run-compose-forward)
+  - [Running manual-forward](#run-manual-forward)
+- [Add an app to manual-forward](#adding-an-application-to-manual-forward)
 ## Description
 The purpose of this repository is to enhance the ease with which a developer can debug and resolve issues in the beta environment.
 
@@ -11,7 +21,7 @@ There are two approaches implemented in this repository, the two separate applic
 Using the compose-forward approach allows you to provide a docker-compose file,
 from which applications will be sourced and all the data needed to start port-forwarding collected. More detail on this approach is given below.
 
-### manual approach
+### manual-forward
 Using the manual-forward approach, you can define each individual application manually, tailored to your needs. This requires more work from the get go, but does allow for greater customization.
 
 ## Pre-requisites
