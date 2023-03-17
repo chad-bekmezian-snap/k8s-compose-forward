@@ -4,13 +4,17 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f03aed1d-2b5f-4897-b5cc-b9cc8cd3b804" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/app/app.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/customerProcess.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/customerProcess.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/licenseProcess.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/licenseProcess.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/mobileExperience.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/mobileExperience.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ovrcExperience.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/ovrcExperience.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+    <list default="true" id="661d7b90-323c-4e7e-9089-baf3b313f195" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/app.go" beforeDir="false" afterPath="$PROJECT_DIR$/manual/app/app.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/customerProcess.go" beforeDir="false" afterPath="$PROJECT_DIR$/manual/app/customerProcess.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/licenseProcess.go" beforeDir="false" afterPath="$PROJECT_DIR$/manual/app/licenseProcess.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/mobileExperience.go" beforeDir="false" afterPath="$PROJECT_DIR$/manual/app/mobileExperience.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/ovrcExperience.go" beforeDir="false" afterPath="$PROJECT_DIR$/manual/app/ovrcExperience.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flags.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/manual-forward/flags.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/manual-forward/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/manual/service/service.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/vars.go" beforeDir="false" afterPath="$PROJECT_DIR$/manual/service/vars.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,6 +49,12 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;settings.sync&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/manual" />
+      <recent name="$PROJECT_DIR$/cmd/forward" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="cs-port-forwarding" />
@@ -90,14 +100,9 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/main.go</url>
+          <url>file://$PROJECT_DIR$/cmd/manual-forward/main.go</url>
           <line>60</line>
           <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/main.go</url>
-          <line>37</line>
-          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
