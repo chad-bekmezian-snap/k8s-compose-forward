@@ -35,8 +35,9 @@ func (s Service) FromPort() int {
 	}
 
 	if fromPort == 0 {
-		fmt.Println(color.Ize(color.Red, "Failed to match a port"))
-		panic("AH")
+		message := fmt.Sprintf("Failed to match a forwarding port for service %s that maps to the k8s destination %d", s.ContainerName, s.K8sPort)
+		fmt.Println(color.Ize(color.Red, message))
+		panic(message)
 	}
 
 	return fromPort
