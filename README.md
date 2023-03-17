@@ -38,7 +38,7 @@ As mentioned previously, there are two ways to use this service. Each approach a
 # Description: >
 #  port-forwarding is started for all services upon which the provided app(s) depend. 
 #  The flag may be provided multiple times to start multiple apps, like so:
-#  -a app-1 -a app-2 OR -a="app-1,app-2"
+#  -a app-1 -a app-2 OR -a="app-1 app-2"
 
 --omit(-o)
 # Usage: --omit app-dependency-name
