@@ -5,18 +5,14 @@ The purpose of this repository is to enhance the ease with which a developer can
 
 The approach used in this repository is to start up port-forwarding for all of a given service's dependencies (excepting databases, redis caches, etc...)
 
-You have two approaches for utilizing this repository, and one git branch for each approach:
+There are two approaches implemented in this repository, the two separate applications can be found in the `cmd` directory:
 
-### docker-compose approach
-**Branch Name: `docker-compose`**
-
-Using the docker-compose approach allows you to provide a docker-compose file,
+### compose-forward
+Using the compose-forward approach allows you to provide a docker-compose file,
 from which applications will be sourced and all the data needed to start port-forwarding collected. More detail on this approach is given below.
 
 ### manual approach
-**Branch Name: `manual`**
-
-Using the manual approach, you can define each individual application manually, tailored to your needs. This requires more work from the get go, but does allow for more customization.
+Using the manual-forward approach, you can define each individual application manually, tailored to your needs. This requires more work from the get go, but does allow for greater customization.
 
 ## Pre-requisites
 1) Install [kubectl](https://kubernetes.io/docs/tasks/tools/)
@@ -53,7 +49,7 @@ As mentioned previously, there are two ways to use this service. Each approach a
 #  -o dep-1 -o dep-2 OR -o="dep-1,dep-2"
 ```
 
-### Run docker-compose
+### Run compose-forward
 The docker-compose route allows for one more argument:
 ```bash 
 --file(-f)
@@ -66,11 +62,11 @@ The docker-compose route allows for one more argument:
 
 1) Checkout the docker-compose branch: `git checkout docker-compose`
 2) Run `go mod tidy`
-3) Run `go build -o forward  cmd/forward/*`
+3) Run `go build -o composeForward cmd/compose-forward/*`
 4) Run `./forward --app {service name in docker-compose file} [--omit|--file]`
 
-### Run manual
+### Run manual-forward
 1) Checkout the docker-compose branch: `git checkout manual`
 2) Run `go mod tidy`
-3) Run `go build -o forward  cmd/forward/*`
+3) Run `go build -o manualForward  cmd/manual-forward/*`
 4) Run `./forward --app {service name in docker-compose file} [--omit]`
