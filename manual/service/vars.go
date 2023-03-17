@@ -7,116 +7,116 @@ const (
 
 var (
 	OvrCExperience = Service{
-		Name:        "service/cese-ovrc-experience-k8s",
-		Namespace:   namespaceExperienceServices,
-		DefaultPort: 5013,
+		K8sName:      "service/cese-ovrc-experience-k8s",
+		K8sNamespace: namespaceExperienceServices,
+		DefaultPort:  5013,
 	}
 
 	CustomerProcess = Service{
-		Name:        "service/cs-customer-process-boot",
-		Namespace:   namespaceBootServices,
-		DefaultPort: 8076,
+		K8sName:      "service/cs-customer-process-boot",
+		K8sNamespace: namespaceBootServices,
+		DefaultPort:  8076,
 	}
 
 	DealerProcess = Service{
-		Name:        "service/cs-dealer-process-boot",
-		Namespace:   namespaceBootServices,
-		DefaultPort: 8079,
+		K8sName:      "service/cs-dealer-process-boot",
+		K8sNamespace: namespaceBootServices,
+		DefaultPort:  8079,
 	}
 
 	LicenseProcess = Service{
-		Name:        "service/cs-license-process-boot",
-		Namespace:   namespaceBootServices,
-		DefaultPort: 8061,
+		K8sName:      "service/cs-license-process-boot",
+		K8sNamespace: namespaceBootServices,
+		DefaultPort:  8061,
 	}
 
 	Account = Service{
-		Name:        "service/cs-account-boot",
-		Namespace:   namespaceBootServices,
-		DefaultPort: 8031,
+		K8sName:      "service/cs-account-boot",
+		K8sNamespace: namespaceBootServices,
+		DefaultPort:  8031,
 	}
 
 	Consumer = Service{
-		Name:        "service/cs-consumer-boot",
-		Namespace:   namespaceBootServices,
-		DefaultPort: 8041,
+		K8sName:      "service/cs-consumer-boot",
+		K8sNamespace: namespaceBootServices,
+		DefaultPort:  8041,
 	}
 
 	Permission = Service{
-		Name:        "service/cs-permission-boot",
-		Namespace:   namespaceBootServices,
-		DefaultPort: 8056,
+		K8sName:      "service/cs-permission-boot",
+		K8sNamespace: namespaceBootServices,
+		DefaultPort:  8056,
 	}
 
 	Controller = Service{
-		Name:        "service/cs-controller-boot",
-		Namespace:   namespaceBootServices,
-		DefaultPort: 8047,
+		K8sName:      "service/cs-controller-boot",
+		K8sNamespace: namespaceBootServices,
+		DefaultPort:  8047,
 	}
 
 	Token = Service{
-		Name:        "service/cs-token-boot",
-		Namespace:   namespaceBootServices,
-		DefaultPort: 8073,
+		K8sName:      "service/cs-token-boot",
+		K8sNamespace: namespaceBootServices,
+		DefaultPort:  8073,
 	}
 
 	Event = Service{
-		Name:        "service/cs-event-boot",
-		Namespace:   namespaceBootServices,
-		DefaultPort: 8053,
+		K8sName:      "service/cs-event-boot",
+		K8sNamespace: namespaceBootServices,
+		DefaultPort:  8053,
 	}
 
 	Certificate = Service{
-		Name:        "service/cs-certificate-boot",
-		Namespace:   namespaceBootServices,
-		DefaultPort: 7788,
+		K8sName:      "service/cs-certificate-boot",
+		K8sNamespace: namespaceBootServices,
+		DefaultPort:  7788,
 	}
 
 	Dealer = Service{
-		Name:        "service/cs-dealer-boot",
-		Namespace:   namespaceBootServices,
-		DefaultPort: 8028,
+		K8sName:      "service/cs-dealer-boot",
+		K8sNamespace: namespaceBootServices,
+		DefaultPort:  8028,
 	}
 
 	Authentication = Service{
-		Name:        "service/cs-authentication-boot",
-		Namespace:   namespaceBootServices,
-		DefaultPort: 9080,
+		K8sName:      "service/cs-authentication-boot",
+		K8sNamespace: namespaceBootServices,
+		DefaultPort:  9080,
 	}
 
 	User = Service{
-		Name:        "service/cs-user-boot",
-		Namespace:   namespaceBootServices,
-		DefaultPort: 8038,
+		K8sName:      "service/cs-user-boot",
+		K8sNamespace: namespaceBootServices,
+		DefaultPort:  8038,
 	}
 
 	Device = Service{
-		Name:        "service/cs-device-boot",
-		Namespace:   namespaceBootServices,
-		DefaultPort: 8555,
+		K8sName:      "service/cs-device-boot",
+		K8sNamespace: namespaceBootServices,
+		DefaultPort:  8555,
 	}
 
 	Application = Service{
-		Name:        "service/cs-application-boot",
-		Namespace:   namespaceBootServices,
-		DefaultPort: 8765,
+		K8sName:      "service/cs-application-boot",
+		K8sNamespace: namespaceBootServices,
+		DefaultPort:  8765,
 	}
 
 	Payment = Service{
-		Name:        "service/cs-payment-service",
-		Namespace:   namespaceBootServices,
-		DefaultPort: 8064,
+		K8sName:      "service/cs-payment-service",
+		K8sNamespace: namespaceBootServices,
+		DefaultPort:  8064,
 	}
 
 	GeolocationProcess = Service{
-		Name:        "service/cs-geolocation-process-boot",
-		Namespace:   namespaceBootServices,
-		DefaultPort: 8069,
+		K8sName:      "service/cs-geolocation-process-boot",
+		K8sNamespace: namespaceBootServices,
+		DefaultPort:  8069,
 	}
 
 	License = Service{
-		Name:        "service/cs-license-boot",
-		Namespace:   namespaceBootServices,
-		DefaultPort: 8050,
+		K8sName:      "service/cs-license-boot",
+		K8sNamespace: namespaceBootServices,
+		DefaultPort:  8050,
 	}
 )

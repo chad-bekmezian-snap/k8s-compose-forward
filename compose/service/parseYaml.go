@@ -38,12 +38,12 @@ func cleanServices(services map[string]Service, k8sServices k8sSvcs) {
 	for serviceName, svc := range services {
 		k8Svc, match := k8sServices.FindServiceByClosestMatchingName(serviceName)
 		if !match {
-			fmt.Println(color.Ize(color.Blue, fmt.Sprintf("Unable to find a service in the cloud matching the name %s. Skipping.", serviceName)))
+			fmt.Println(color.Ize(color.Blue, fmt.Sprintf("Unable to find a k8s service matching the name %s. Skipping.", serviceName)))
 			delete(services, serviceName)
 			continue
 		}
 
-		fmt.Println(color.Ize(color.Green, fmt.Sprintf("Matching %s -> %s", serviceName, k8Svc.Detail.Name)))
+		fmt.Println(color.Ize(color.Green, fmt.Sprintf("Matching %s -> k8s/%s", serviceName, k8Svc.Detail.Name)))
 		svc.K8sName = k8Svc.Detail.Name
 		svc.K8sNamespace = k8Svc.Detail.Namespace
 		svc.K8sPort = k8Svc.Spec.Ports[0].Port

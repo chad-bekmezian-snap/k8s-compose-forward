@@ -1,5 +1,12 @@
 package service
 
+import (
+	"fmt"
+	"github.com/TwiN/go-color"
+	"strconv"
+	"strings"
+)
+
 type dockerCompose struct {
 	Services map[string]Service `yaml:"services"`
 }
@@ -11,4 +18,38 @@ type Service struct {
 	K8sName       string
 	K8sNamespace  string
 	K8sPort       int
+}
+
+func (s Service) FromPort() int {
+	var fromPort int
+
+	for _, p := range s.Ports {
+		ports := strings.Split(p, ":")
+		switch {
+		case len(ports) == 1 && strconv.Itoa(s.K8sPort) == ports[0]:
+			break
+		case len(ports) == 2 && ports[1] == strconv.Itoa(s.K8sPort):
+			fromPort, _ = strconv.Atoi(ports[0])
+			break
+		}
+	}
+
+	if fromPort == 0 {
+		fmt.Println(color.Ize(color.Red, "Failed to match a port"))
+		panic("AH")
+	}
+
+	return fromPort
+}
+
+func (s Service) ToPort() int {
+	return s.K8sPort
+}
+
+func (s Service) Name() string {
+	return "service/" + s.K8sName
+}
+
+func (s Service) Namespace() string {
+	return s.K8sNamespace
 }

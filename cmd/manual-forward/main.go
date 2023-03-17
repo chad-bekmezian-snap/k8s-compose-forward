@@ -2,16 +2,14 @@ package main
 
 import (
 	"fmt"
-	color "github.com/TwiN/go-color"
+	"github.com/TwiN/go-color"
+	"github.com/chad-bekmezian-snap/cs-port-forwarding/forward"
 	"github.com/chad-bekmezian-snap/cs-port-forwarding/manual/app"
 	"github.com/chad-bekmezian-snap/cs-port-forwarding/manual/service"
-	"os"
-	"os/exec"
 	"strings"
 	"sync"
 )
 
-var currentProcesses = sync.Map{}
 var appNameToApp = map[string]app.App{
 	"ovrc-experience":   app.OvrCExperience,
 	"customer-process":  app.CustomerProcess,
@@ -35,8 +33,8 @@ func main() {
 		}
 
 		for _, s := range services {
-			if omitFlag.Contains(s.Service.Name) {
-				fmt.Println(color.Ize(color.Blue, "Skipping "+s.Service.Name))
+			if omitFlag.Contains(s.Service.Name()) {
+				fmt.Println(color.Ize(color.Blue, "Skipping "+s.Service.Name()))
 				continue
 			}
 			wg.Add(1)
@@ -50,7 +48,7 @@ func main() {
 }
 
 func portForwardToService(s service.Configurable) {
-	var port uint
+	var port int
 	switch {
 	case s.DefaultPort > 0:
 		port = s.DefaultPort
@@ -62,63 +60,8 @@ func portForwardToService(s service.Configurable) {
 	if s.Service.ForwardToPort == 0 {
 		s.Service.ForwardToPort = 80
 	}
-
-	fmt.Println(fmt.Sprintf("Port forwarding '%s' in namespace '%s' with ports '%d:%d' starting", s.Service.Name, s.Service.Namespace, port, s.Service.ForwardToPort))
-
-	cmdArgs := []string{
-		fmt.Sprintf("-n=%s", s.Service.Namespace),
-		"port-forward", s.Service.Name,
-		fmt.Sprintf("%d:%d", port, s.Service.ForwardToPort),
-	}
-
-	if alreadyRunning := cmdRunning("kubectl", cmdArgs...); alreadyRunning {
-		fmt.Println(color.Ize(color.Yellow, fmt.Sprintf("Port forwarding '%s' in namespace '%s' with ports '%d:%d' is already in progress.", s.Service.Name, s.Service.Namespace, port, s.Service.ForwardToPort)))
-		return
-	}
-
-	// e.g. kubectl -n=experience-services port-forward service/cese-ovrc-experience-k8s 8085:80
-	cmd := exec.Command("kubectl", cmdArgs...)
-	cmd.Stdin = os.Stdin
-	cmd.Stderr = os.Stderr
-	if err := cmd.Start(); err != nil {
-		fmt.Println(color.Ize(color.Red, fmt.Sprintf("Port forwarding '%s' in namespace '%s' with ports '%d:%d' failed to start.", s.Service.Name, s.Service.Namespace, port, s.Service.ForwardToPort)))
-		return
-	}
-
-	fmt.Println(color.Ize(color.Green, fmt.Sprintf("Port forwarding '%s' in namespace '%s' with ports '%d:%d' started", s.Service.Name, s.Service.Namespace, port, s.Service.ForwardToPort)))
-
-	if err := cmd.Wait(); err != nil {
-		fmt.Println(color.Ize(color.Red, fmt.Sprintf("Port forwarding '%s' in namespace '%s' with ports '%d:%d' failed.", s.Service.Name, s.Service.Namespace, port, s.Service.ForwardToPort)))
-		fmt.Println(err)
-		return
-	}
-}
-
-func cmdRunning(name string, args ...string) bool {
-	for i, arg := range args {
-		args[i] = strings.TrimSpace(arg)
-	}
-
-	if _, existed := currentProcesses.LoadOrStore(strings.Join(args, ""), nil); existed {
-		return true
-	}
-
-	psCmd := exec.Command("ps", "aux")
-	grep := exec.Command("grep", fmt.Sprintf(`%s %s`, strings.TrimSpace(name), strings.Join(args, " ")))
-	removeGrep := exec.Command("grep", "-v", "grep")
-
-	grepPipe, _ := psCmd.StdoutPipe()
-	defer grepPipe.Close()
-	removeGrepPipe, _ := grep.StdoutPipe()
-	defer removeGrepPipe.Close()
-	grep.Stdin = grepPipe
-	removeGrep.Stdin = removeGrepPipe
-
-	_ = psCmd.Start()
-	_ = grep.Start()
-	o, _ := removeGrep.Output()
-
-	return len(o) > 0
+	s.Service.DefaultPort = port
+	forward.ToService(s.Service)
 }
 
 func printValidApplications() {

@@ -3,12 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
-	"regexp"
 	"strings"
-)
-
-const (
-	servicePrefix = "service/"
 )
 
 type multiValueFlag []string
@@ -61,19 +56,11 @@ func init() {
 
 	for i, v := range omitFlag {
 		v = strings.TrimSpace(v)
-		matches, _ := regexp.MatchString(fmt.Sprintf("^%s.+", regexp.QuoteMeta(servicePrefix)), v)
-		if !matches {
-			v = servicePrefix + v
-		}
 		omitFlag[i] = v
 	}
 
 	for i, v := range serviceFlag {
 		v = strings.TrimSpace(v)
-		matches, _ := regexp.MatchString(fmt.Sprintf("^%s.+", regexp.QuoteMeta(servicePrefix)), v)
-		if !matches {
-			v = servicePrefix + v
-		}
 		omitFlag[i] = v
 	}
 }
