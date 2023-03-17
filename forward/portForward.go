@@ -5,6 +5,7 @@ import (
 	"github.com/TwiN/go-color"
 	"os"
 	"os/exec"
+	"runtime"
 	"strings"
 	"sync"
 )
@@ -25,7 +26,6 @@ func ToService(s Service) {
 		return
 	}
 
-	// e.g. kubectl -n=experience-services port-forward service/cese-ovrc-experience-k8s 8085:80
 	cmd := exec.Command("kubectl", cmdArgs...)
 	cmd.Stdin = os.Stdin
 	cmd.Stderr = os.Stderr
@@ -52,22 +52,42 @@ func cmdRunning(name string, args ...string) bool {
 		return true
 	}
 
-	psCmd := exec.Command("ps", "aux")
-	grep := exec.Command("grep", fmt.Sprintf(`%s %s`, strings.TrimSpace(name), strings.Join(args, " ")))
-	removeGrep := exec.Command("grep", "-v", "grep")
+	isDuplicateProcess := func() bool {
+		psCmd := exec.Command("ps", "aux")
+		grep := exec.Command("grep", fmt.Sprintf(`%s %s`, strings.TrimSpace(name), strings.Join(args, " ")))
+		removeGrep := exec.Command("grep", "-v", "grep")
 
-	grepPipe, _ := psCmd.StdoutPipe()
-	defer grepPipe.Close()
-	removeGrepPipe, _ := grep.StdoutPipe()
-	defer removeGrepPipe.Close()
-	grep.Stdin = grepPipe
-	removeGrep.Stdin = removeGrepPipe
+		grepPipe, _ := psCmd.StdoutPipe()
+		defer grepPipe.Close()
+		removeGrepPipe, _ := grep.StdoutPipe()
+		defer removeGrepPipe.Close()
+		grep.Stdin = grepPipe
+		removeGrep.Stdin = removeGrepPipe
 
-	_ = psCmd.Start()
-	_ = grep.Start()
-	o, _ := removeGrep.Output()
+		_ = psCmd.Start()
+		_ = grep.Start()
+		o, _ := removeGrep.Output()
 
-	return len(o) > 0
+		return len(o) > 0
+	}
+
+	if runtime.GOOS == "windows" {
+		isDuplicateProcess = func() bool {
+			psCmd := exec.Command("ps", "aux")
+			selectString := exec.Command("Select-String", fmt.Sprintf(`%s %s`, strings.TrimSpace(name), strings.Join(args, " ")))
+
+			selectStringPipe, _ := psCmd.StdoutPipe()
+			defer selectStringPipe.Close()
+			selectString.Stdin = selectStringPipe
+
+			_ = psCmd.Start()
+			o, _ := selectString.Output()
+
+			return len(o) > 0
+		}
+	}
+
+	return isDuplicateProcess()
 }
 
 func printStatus(c, status string, s Service) {
