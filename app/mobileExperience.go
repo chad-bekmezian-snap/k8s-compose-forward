@@ -1,6 +1,6 @@
 package app
 
-import "test/fdcas/cmd/k9s-automation/service"
+import "github.com/chad-bekmezian-snap/cs-port-forwarding/service"
 
 var MobileExperience = App{
 	{

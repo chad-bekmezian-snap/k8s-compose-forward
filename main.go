@@ -3,12 +3,12 @@ package main
 import (
 	"fmt"
 	color "github.com/TwiN/go-color"
+	"github.com/chad-bekmezian-snap/cs-port-forwarding/app"
+	"github.com/chad-bekmezian-snap/cs-port-forwarding/service"
 	"os"
 	"os/exec"
 	"strings"
 	"sync"
-	"test/fdcas/cmd/k9s-automation/app"
-	"test/fdcas/cmd/k9s-automation/service"
 )
 
 var currentProcesses = sync.Map{}
