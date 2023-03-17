@@ -19,6 +19,7 @@ func ToService(s Service) {
 		fmt.Sprintf("-n=%s", s.Namespace()),
 		"port-forward", s.Name(),
 		fmt.Sprintf("%d:%d", s.FromPort(), s.ToPort()),
+		"--address=0.0.0.0",
 	}
 
 	if alreadyRunning := cmdRunning("kubectl", cmdArgs...); alreadyRunning {

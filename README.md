@@ -17,6 +17,9 @@ The approach used in this repository is to start up port-forwarding for all of a
 
 There are two approaches implemented in this repository, the two separate applications can be found in the `cmd` directory:
 
+(Quick gotcha. This port-forwarding occurs via IPv4. Java services you are running locally will utilize IPv6,
+which means you could end up running a service on a given port using both IPv4 and IPv6 simultaneously.)
+
 ### compose-forward
 Using the compose-forward approach allows you to provide a docker-compose file,
 from which applications will be sourced and all the data needed to start port-forwarding collected. More detail on this approach is given below.
