@@ -4,18 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="661d7b90-323c-4e7e-9089-baf3b313f195" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app.go" beforeDir="false" afterPath="$PROJECT_DIR$/manual/app/app.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/customerProcess.go" beforeDir="false" afterPath="$PROJECT_DIR$/manual/app/customerProcess.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/licenseProcess.go" beforeDir="false" afterPath="$PROJECT_DIR$/manual/app/licenseProcess.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/mobileExperience.go" beforeDir="false" afterPath="$PROJECT_DIR$/manual/app/mobileExperience.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ovrcExperience.go" beforeDir="false" afterPath="$PROJECT_DIR$/manual/app/ovrcExperience.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flags.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/manual-forward/flags.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/manual-forward/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/manual/service/service.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/vars.go" beforeDir="false" afterPath="$PROJECT_DIR$/manual/service/vars.go" afterDir="false" />
-    </list>
+    <list default="true" id="661d7b90-323c-4e7e-9089-baf3b313f195" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
