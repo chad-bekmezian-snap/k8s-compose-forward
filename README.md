@@ -32,6 +32,8 @@ Using the manual-forward approach, you can define each individual application ma
 2) Install [Go](https://go.dev/doc/install)
 
 ## Setup
+> Note: If you are using Windows, make sure you run everything from within Git Bash.
+
 In order for this to work, you must have a valid `~/.kube/config` file. If you do not have one yet, you can create one like so:
 
 ```bash 
@@ -45,14 +47,6 @@ aws eks update-kubeconfig --name beta-cloud-services --profile dev_access --regi
 As mentioned previously, there are two ways to use this service. Each approach allows the following arguments to be provided:
 
 ```bash 
---app(-a)
-# Usage: --app my-service-name
-# Required: true
-# Description: >
-#  port-forwarding is started for all services upon which the provided app(s) depend. 
-#  The flag may be provided multiple times to start multiple apps, like so:
-#  -a app-1 -a app-2 OR -a="app-1 app-2"
-
 --omit(-o)
 # Usage: --omit app-dependency-name
 # Required: false
@@ -63,8 +57,17 @@ As mentioned previously, there are two ways to use this service. Each approach a
 ```
 
 ### Run compose-forward
-The docker-compose route allows for one more argument:
+The docker-compose route allows for two more arguments:
 ```bash 
+--service(-s)
+# Usage: --service some-docker-service
+# Required: false
+# Description: >
+#   Allows the user to provide the names of specific services (as contained in the docker-compose file)
+#   for which to start port-forwarding.
+#   The flag may be provided multiple times to omit multiple dependencies, like so:
+#  -s svc-1 -o svc-2 OR -s="svc-1 svc-2"
+
 --file(-f)
 # Usage: --file path/to/docker-compose.yml
 # Required: false
@@ -76,7 +79,7 @@ The docker-compose route allows for one more argument:
 1) Checkout the docker-compose branch: `git checkout docker-compose`
 2) Run `go mod tidy`
 3) Run `go build -o composeForward cmd/compose-forward/*`
-4) Run `./forward --app {service name in docker-compose file} [--omit|--file]`
+4) Run `./forward [--omit|--file|--services] app-names...`
 
 ### Run manual-forward
 1) Checkout the docker-compose branch: `git checkout manual`

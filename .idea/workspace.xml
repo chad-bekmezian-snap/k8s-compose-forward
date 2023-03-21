@@ -6,7 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="1eea5cca-795f-4117-bf5d-3c1adcf6e919" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/forward/portForward.go" beforeDir="false" afterPath="$PROJECT_DIR$/forward/portForward.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/compose-forward/compose-forward.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/compose-forward/flags.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/compose-forward/flags.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/compose-forward/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/compose-forward/main.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,19 +61,19 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="go build github.com/chad-bekmezian-snap/cs-port-forwarding" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+    <configuration name="go build github.com/chad-bekmezian-snap/k8s-port-forwarding/cmd/compose-forward" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="cs-port-forwarding" />
       <working_directory value="$PROJECT_DIR$" />
-      <parameters value="-f $PROJECT_DIR$/../../../GitHub/cs-webservices-local-docker/docker-compose.yml -a mobile-experience-api" />
+      <parameters value="-f $PROJECT_DIR$/../../../GitHub/cs-webservices-local-docker/docker-compose.yml -s mobile-experience-api mobile-experience-api" />
       <kind value="PACKAGE" />
-      <package value="github.com/chad-bekmezian-snap/cs-port-forwarding" />
+      <package value="github.com/chad-bekmezian-snap/k8s-port-forwarding/cmd/compose-forward" />
       <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$/main.go" />
+      <filePath value="$PROJECT_DIR$/cmd/compose-forward/main.go" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Go Build.go build github.com/chad-bekmezian-snap/cs-port-forwarding" />
+        <item itemvalue="Go Build.go build github.com/chad-bekmezian-snap/k8s-port-forwarding/cmd/compose-forward" />
       </list>
     </recent_temporary>
   </component>
@@ -80,5 +83,16 @@
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/cmd/compose-forward/main.go</url>
+          <line>13</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
