@@ -5,12 +5,24 @@ import (
 	"github.com/TwiN/go-color"
 	"github.com/chad-bekmezian-snap/k8s-port-forwarding/compose/service"
 	"github.com/chad-bekmezian-snap/k8s-port-forwarding/forward"
+	"os"
 	"sort"
 	"strings"
 	"sync"
 )
 
 func main() {
+	if listServices {
+		_ = os.Setenv("FORWARD_SILENT", "true")
+		nameToService, err := service.Load(yamlPathFlag)
+		if err != nil {
+			fmt.Println(color.Ize(color.Red, err))
+			panic(err)
+		}
+		printValidApplications(nameToService)
+		return
+	}
+
 	if len(appArgs)+len(serviceFlag) == 0 {
 		fmt.Println("No applications or services specified. Exiting.")
 		return
@@ -32,7 +44,7 @@ func main() {
 
 	wg.Add(1)
 	go func() {
-		fmt.Println(fmt.Sprintf("Starting port-forwarding to depedencies of apps: %v", appArgs))
+		fmt.Println(fmt.Sprintf("Starting port-forwarding to dependencies of apps: %v", appArgs))
 		portForwardForApps(appArgs, nameToService)
 		wg.Done()
 	}()

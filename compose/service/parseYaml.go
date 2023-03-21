@@ -7,8 +7,16 @@ import (
 	"os"
 )
 
+var printLine = fmt.Println
+
+func discardPrintln(_ ...any) (n int, err error) { return 0, nil }
+
 // Load returns a map of docker-compose service names to the details needed to start up their dependencies.
 func Load(dockerComposePath string) (map[string]Service, error) {
+	if isSilent := os.Getenv("FORWARD_SILENT"); isSilent == "true" {
+		printLine = discardPrintln
+	}
+
 	file, err := os.Open(dockerComposePath)
 	if err != nil {
 		return nil, err
@@ -26,10 +34,10 @@ func Load(dockerComposePath string) (map[string]Service, error) {
 	}
 
 	cleanServices(parsedFile.Services, k8sServices)
-	println()
-	println()
-	println()
-	println()
+	printLine()
+	printLine()
+	printLine()
+	printLine()
 
 	return parsedFile.Services, nil
 }
@@ -38,12 +46,12 @@ func cleanServices(services map[string]Service, k8sServices k8sSvcs) {
 	for serviceName, svc := range services {
 		k8Svc, match := k8sServices.FindServiceByClosestMatchingName(serviceName)
 		if !match {
-			fmt.Println(color.Ize(color.Blue, fmt.Sprintf("Unable to find a k8s service matching the name %s. Skipping.", serviceName)))
+			printLine(color.Ize(color.Blue, fmt.Sprintf("Unable to find a k8s service matching the name %s. Skipping.", serviceName)))
 			delete(services, serviceName)
 			continue
 		}
 
-		fmt.Println(color.Ize(color.Green, fmt.Sprintf("Matching %s -> k8s/%s", serviceName, k8Svc.Detail.Name)))
+		printLine(color.Ize(color.Green, fmt.Sprintf("Matching %s -> k8s/%s", serviceName, k8Svc.Detail.Name)))
 		svc.K8sName = k8Svc.Detail.Name
 		svc.K8sNamespace = k8Svc.Detail.Namespace
 		svc.K8sPort = k8Svc.Spec.Ports[0].Port

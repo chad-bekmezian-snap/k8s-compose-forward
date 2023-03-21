@@ -40,6 +40,7 @@ var (
 	appArgs      multiValueFlag
 	serviceFlag  multiValueFlag
 	yamlPathFlag string
+	listServices bool
 )
 
 func init() {
@@ -52,9 +53,11 @@ func init() {
 	flag.StringVar(&yamlPathFlag, "file", "docker-compose.yml", "Used to be specify one or more services for which to start port-forwarding")
 	flag.StringVar(&yamlPathFlag, "f", "docker-compose.yml", "Used to be specify one or more services for which to start port-forwarding")
 
+	flag.BoolVar(&listServices, "list", false, "If provided, nothing will be run and service names will be listed.")
+	flag.BoolVar(&listServices, "l", false, "If provided, nothing will be run and service names will be listed.")
+
 	flag.Parse()
 	appArgs = flag.Args()
-	fmt.Println(appArgs)
 
 	for i, v := range omitFlag {
 		v = strings.TrimSpace(v)

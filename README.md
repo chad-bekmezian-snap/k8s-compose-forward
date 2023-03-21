@@ -57,7 +57,7 @@ As mentioned previously, there are two ways to use this service. Each approach a
 ```
 
 ### Run compose-forward
-The docker-compose route allows for two more arguments:
+The docker-compose route allows for the following additional arguments:
 ```bash 
 --service(-s)
 # Usage: --service some-docker-service
@@ -67,6 +67,12 @@ The docker-compose route allows for two more arguments:
 #   for which to start port-forwarding.
 #   The flag may be provided multiple times to omit multiple dependencies, like so:
 #  -s svc-1 -o svc-2 OR -s="svc-1 svc-2"
+
+--list(-l)
+# Usage: --list
+# Required: false
+# Description: >
+#   If the --list or -l flag is provided, no port-forwarding will occur, but an alphabetized list of available services/apps to use will be printed.
 
 --file(-f)
 # Usage: --file path/to/docker-compose.yml
@@ -79,7 +85,7 @@ The docker-compose route allows for two more arguments:
 1) Checkout the docker-compose branch: `git checkout docker-compose`
 2) Run `go mod tidy`
 3) Run `go build -o composeForward cmd/compose-forward/*`
-4) Run `./forward [--omit|--file|--services] app-names...`
+4) Run `./forward [options] [app-names...]`
 
 ### Run manual-forward
 1) Checkout the docker-compose branch: `git checkout manual`

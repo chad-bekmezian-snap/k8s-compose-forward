@@ -7,9 +7,9 @@
     <list default="true" id="1eea5cca-795f-4117-bf5d-3c1adcf6e919" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/compose-forward/compose-forward.exe" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/compose-forward/flags.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/compose-forward/flags.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/compose-forward/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/compose-forward/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/compose/service/parseYaml.go" beforeDir="false" afterPath="$PROJECT_DIR$/compose/service/parseYaml.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,16 +83,5 @@
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/cmd/compose-forward/main.go</url>
-          <line>13</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
