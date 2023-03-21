@@ -11,8 +11,8 @@ import (
 )
 
 func main() {
-	if len(appFlag) == 0 {
-		fmt.Println("No applications specified. Exiting.")
+	if len(appArgs)+len(serviceFlag) == 0 {
+		fmt.Println("No applications or services specified. Exiting.")
 		return
 	}
 
@@ -23,7 +23,46 @@ func main() {
 	}
 
 	var wg sync.WaitGroup
-	for _, appName := range appFlag {
+	wg.Add(1)
+	go func() {
+		fmt.Println(fmt.Sprintf("Starting port-forwarding to services: %v", serviceFlag))
+		portForwardForServices(serviceFlag, nameToService)
+		wg.Done()
+	}()
+
+	wg.Add(1)
+	go func() {
+		fmt.Println(fmt.Sprintf("Starting port-forwarding to depedencies of apps: %v", appArgs))
+		portForwardForApps(appArgs, nameToService)
+		wg.Done()
+	}()
+
+	wg.Wait()
+}
+
+func portForwardForServices(services multiValueFlag, nameToService map[string]service.Service) {
+	var wg sync.WaitGroup
+	for _, serviceName := range services {
+		svc, ok := nameToService[serviceName]
+		if !ok {
+			fmt.Println(color.Ize(color.Red, "ERROR: Undefined service with name: "+serviceName))
+			fmt.Println("Valid values are:")
+			printValidApplications(nameToService)
+			return
+		}
+
+		wg.Add(1)
+		go func(s service.Service) {
+			forward.ToService(s)
+			wg.Done()
+		}(svc)
+	}
+	wg.Wait()
+}
+
+func portForwardForApps(apps multiValueFlag, nameToService map[string]service.Service) {
+	var wg sync.WaitGroup
+	for _, appName := range apps {
 		svc, ok := nameToService[appName]
 		if !ok {
 			fmt.Println(color.Ize(color.Red, "ERROR: Undefined application with name: "+appName))
