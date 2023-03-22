@@ -41,6 +41,7 @@ var (
 	serviceFlag  multiValueFlag
 	yamlPathFlag string
 	listServices bool
+	completions  bool
 )
 
 func init() {
@@ -55,6 +56,9 @@ func init() {
 
 	flag.BoolVar(&listServices, "list", false, "If provided, nothing will be run and service names will be listed.")
 	flag.BoolVar(&listServices, "l", false, "If provided, nothing will be run and service names will be listed.")
+
+	flag.BoolVar(&completions, "completions", false, "If provided, nothing will be run, and services names will be listed that can be used to seeds bash completions.")
+	flag.BoolVar(&completions, "c", false, "If provided, nothing will be run, and services names will be listed that can be used to seeds bash completions.")
 
 	flag.Parse()
 	appArgs = flag.Args()

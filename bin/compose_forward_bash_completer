@@ -1,0 +1,28 @@
+function _compose_forward_complete() {
+    local cur="${COMP_WORDS[$COMP_CWORD]}"
+    # File path suggestions
+    if [ "$cur" == "--file" ] || [ "$cur" == "-f" ]; then
+        COMPREPLY=()
+        return
+    fi
+
+	local fileFlag=$(echo "${COMP_WORDS[@]}" | sed -nr 's/.*(--file|-f)( |=)(["-~]+).*/\3/p')
+    fileFlag="${fileFlag/#\~/$HOME}"
+
+    local serviceNames
+    if [ ${#fileFlag} -eq 0 ]
+    then
+        serviceNames="$(composeForward -c)"
+    else
+        serviceNames="$(composeForward -f $fileFlag -c)"
+    fi
+
+    local opts=("--omit --service -s --file -f --list -l --completions -c")
+    if [[ " ${opts[*]} " =~ " ${cur} " ]]; then
+        COMPREPLY=($(compgen -W "$serviceNames" -- "$cur"))
+    else
+        COMPREPLY=($(compgen -W "$serviceNames $opts" -- "$cur"))
+    fi
+}
+
+complete -o default -F _compose_forward_complete composeForward

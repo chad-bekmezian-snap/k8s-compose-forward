@@ -1,0 +1,35 @@
+autoload -Uz bashcompinit
+bashcompinit -i
+
+function _compose_forward_complete() {
+    local IFS=$'\n'
+    let "ci = $COMP_CWORD - 1"
+    cur="${COMP_WORDS[$ci]}"
+
+    # File path suggestions
+    if [ "$cur" == "--file" ] || [ "$cur" == "-f" ]; then
+        COMPREPLY=()
+        return
+    fi
+
+	local fileFlag=$(echo "${COMP_WORDS[@]}" | sed -nE 's/.*(--file|-f)( |=)(["-~]+).*/\3/p')
+    fileFlag="${fileFlag/#\~/$HOME}"
+
+    local serviceNames
+    if [[ ${#fileFlag} -eq 0 ]]
+    then
+        serviceNames="$(composeForward -c)"
+    else
+        serviceNames="$(composeForward -f $fileFlag -c)"
+    fi
+
+    local opts=("--omit -o --service -s --file -f --list -l --completions -c")
+    if [[ " ${opts[*]} " =~ " ${cur} " ]]
+    then
+        echo $serviceNames
+    else
+        echo "$serviceNames $opts"
+    fi
+}
+
+complete -o default -C _compose_forward_complete composeForward

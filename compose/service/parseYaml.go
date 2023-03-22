@@ -5,6 +5,7 @@ import (
 	"github.com/TwiN/go-color"
 	"gopkg.in/yaml.v3"
 	"os"
+	"strings"
 )
 
 var printLine = fmt.Println
@@ -17,14 +18,9 @@ func Load(dockerComposePath string) (map[string]Service, error) {
 		printLine = discardPrintln
 	}
 
-	file, err := os.Open(dockerComposePath)
-	if err != nil {
-		return nil, err
-	}
-
-	decoder := yaml.NewDecoder(file)
-	var parsedFile dockerCompose
-	if err := decoder.Decode(&parsedFile); err != nil {
+	var parsedFile *dockerCompose
+	var err error
+	if parsedFile, err = loadDockerCompose(dockerComposePath); err != nil {
 		return nil, err
 	}
 
@@ -40,6 +36,35 @@ func Load(dockerComposePath string) (map[string]Service, error) {
 	printLine()
 
 	return parsedFile.Services, nil
+}
+
+func GetBashCompletions(path string) (string, error) {
+	compose, err := loadDockerCompose(path)
+	if err != nil {
+		return "", err
+	}
+
+	resultArr := make([]string, 0, len(compose.Services))
+	for name, _ := range compose.Services {
+		resultArr = append(resultArr, name)
+	}
+
+	return strings.Join(resultArr, " "), nil
+}
+
+func loadDockerCompose(path string) (*dockerCompose, error) {
+	file, err := os.Open(path)
+	if err != nil {
+		return nil, err
+	}
+
+	decoder := yaml.NewDecoder(file)
+	var parsedFile dockerCompose
+	if err := decoder.Decode(&parsedFile); err != nil {
+		return nil, err
+	}
+
+	return &parsedFile, nil
 }
 
 func cleanServices(services map[string]Service, k8sServices k8sSvcs) {

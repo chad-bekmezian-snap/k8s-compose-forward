@@ -5,21 +5,19 @@ import (
 	"github.com/TwiN/go-color"
 	"github.com/chad-bekmezian-snap/k8s-port-forwarding/compose/service"
 	"github.com/chad-bekmezian-snap/k8s-port-forwarding/forward"
-	"os"
-	"sort"
 	"strings"
 	"sync"
 )
 
 func main() {
 	if listServices {
-		_ = os.Setenv("FORWARD_SILENT", "true")
-		nameToService, err := service.Load(yamlPathFlag)
-		if err != nil {
-			fmt.Println(color.Ize(color.Red, err))
-			panic(err)
-		}
-		printValidApplications(nameToService)
+		printAppsSilently(yamlPathFlag)
+		return
+	}
+
+	if completions {
+		results, _ := service.GetBashCompletions(yamlPathFlag)
+		fmt.Println(strings.Trim(fmt.Sprint(results), "[]"))
 		return
 	}
 
@@ -103,14 +101,4 @@ func portForwardForApps(apps multiValueFlag, nameToService map[string]service.Se
 		}
 	}
 	wg.Wait()
-}
-
-func printValidApplications(nameToService map[string]service.Service) {
-	result := make(sort.StringSlice, 0, len(nameToService))
-	for key, _ := range nameToService {
-		result = append(result, " - "+key)
-	}
-	result.Sort()
-
-	fmt.Println(strings.Join(result, "\n"))
 }
