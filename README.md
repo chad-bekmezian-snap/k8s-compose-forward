@@ -4,6 +4,8 @@
 - [Description](#description)
   - [compose-forward](#compose-forward)
   - [manual-forward](#manual-forward)
+- [Using prebuilt binaries](#using-prebuilt-binaries)
+  - [auto-completion](#bonus--automatic-completion--composeforward-only-)
 - [Pre-requisites](#pre-requisites)
 - [Setup](#setup)
 - [Running](#running)
@@ -26,6 +28,18 @@ from which applications will be sourced and all the data needed to start port-fo
 
 ### manual-forward
 Using the manual-forward approach, you can define each individual application manually, tailored to your needs. This requires more work from the get go, but does allow for greater customization.
+
+## Using prebuilt binaries
+1) Head over to the Releases section of this repository and download the latest version compatible with your machine.
+2) Add the downloaded binary to your $PATH variable.
+
+### Bonus: automatic completion (composeForward only)
+Because remembering the exact names of every file in your docker-compose file is a pain,
+there are bash and zsh completion scripts that you can utilize to make interacting with `composeForward` more enjoyable.
+
+1) Download the applicable `compose_forward_[bash|zsh]_completer` file.
+2) In your relevant .rc file (e.g. .zshrc or .bashrc), add the following line: `source path/to/your/completer`
+3) Open a new bash or zsh session, type `composeForward` then hit `TAB` (in bash hit it twice). You should see auto-completion at work!
 
 ## Pre-requisites
 1) Install [kubectl](https://kubernetes.io/docs/tasks/tools/)
