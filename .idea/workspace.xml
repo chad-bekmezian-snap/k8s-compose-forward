@@ -5,7 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1eea5cca-795f-4117-bf5d-3c1adcf6e919" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/file/compose/file.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/k8s/service.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/compose-forward/flags.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/compose-forward/flags.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/compose-forward/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/compose-forward/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/compose-forward/printApps.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/compose-forward/printApps.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/manual-forward/flags.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/manual-forward/main.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/compose/service/dockerCompose.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/compose/composeService.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/compose/service/k8Services.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/k8s/listServices.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/compose/service/parseYaml.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/compose/parseYaml.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/forward/portForward.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/k8s/portForward.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/forward/service.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/manual/app/app.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/manual/app/customerProcess.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/manual/app/licenseProcess.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/manual/app/mobileExperience.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/manual/app/ovrcExperience.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/manual/service/service.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/manual/service/vars.go" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,9 +70,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/file/compose" />
+      <recent name="$PROJECT_DIR$/service/compose" />
+      <recent name="$PROJECT_DIR$/service" />
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/compose/service" />
-      <recent name="$PROJECT_DIR$/manual" />
-      <recent name="$PROJECT_DIR$/cmd/forward" />
     </key>
   </component>
   <component name="RunManager" selected="Makefile Target.build-windows-amd64">

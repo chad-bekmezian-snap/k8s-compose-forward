@@ -1,10 +1,10 @@
-package service
+package compose
 
 import (
 	"fmt"
 	"github.com/TwiN/go-color"
-	"github.com/chad-bekmezian-snap/k8s-port-forwarding/file"
-	"github.com/chad-bekmezian-snap/k8s-port-forwarding/k8s"
+	"github.com/chad-bekmezian-snap/k8s-port-forwarding/file/compose"
+	"github.com/chad-bekmezian-snap/k8s-port-forwarding/service/k8s"
 	"os"
 	"strings"
 )
@@ -14,14 +14,14 @@ var printLine = fmt.Println
 func discardPrintln(_ ...any) (n int, err error) { return 0, nil }
 
 // Load returns a map of docker-compose service names to the details needed to start up their dependencies.
-func Load(dockerComposePath string) (map[string]ComposeService, error) {
+func Load(dockerComposePath string) (map[string]Service, error) {
 	if isSilent := os.Getenv("FORWARD_SILENT"); isSilent == "true" {
 		printLine = discardPrintln
 	}
 
-	var parsedFile file.Compose
+	var parsedFile compose.Compose
 	var err error
-	if parsedFile, err = file.ParseCompose(dockerComposePath); err != nil {
+	if parsedFile, err = compose.ParseCompose(dockerComposePath); err != nil {
 		return nil, err
 	}
 
@@ -40,7 +40,7 @@ func Load(dockerComposePath string) (map[string]ComposeService, error) {
 }
 
 func GetBashCompletions(path string) (string, error) {
-	compose, err := file.ParseCompose(path)
+	compose, err := compose.ParseCompose(path)
 	if err != nil {
 		return "", err
 	}
@@ -53,8 +53,8 @@ func GetBashCompletions(path string) (string, error) {
 	return strings.Join(resultArr, " "), nil
 }
 
-func mapComposeToK8s(composeFile file.Compose, k8sServices k8s.ServiceSlice) map[string]ComposeService {
-	result := make(map[string]ComposeService, len(composeFile.Services))
+func mapComposeToK8s(composeFile compose.Compose, k8sServices k8s.ServiceSlice) map[string]Service {
+	result := make(map[string]Service, len(composeFile.Services))
 
 	for serviceName, svc := range composeFile.Services {
 		k8Svc, match := k8sServices.FindServiceByClosestMatchingName(serviceName)
@@ -64,7 +64,7 @@ func mapComposeToK8s(composeFile file.Compose, k8sServices k8s.ServiceSlice) map
 		}
 
 		printLine(color.Ize(color.Green, fmt.Sprintf("Matching %s -> k8s/%s", serviceName, k8Svc.Detail.Name)))
-		result[serviceName] = ComposeService{
+		result[serviceName] = Service{
 			Spec:         svc,
 			K8sName:      k8Svc.Detail.Name,
 			K8sNamespace: k8Svc.Detail.Namespace,

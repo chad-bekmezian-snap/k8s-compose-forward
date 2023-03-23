@@ -1,4 +1,4 @@
-package file
+package compose
 
 import (
 	"gopkg.in/yaml.v3"

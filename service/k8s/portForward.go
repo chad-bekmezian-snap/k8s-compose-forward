@@ -19,7 +19,7 @@ type ForwardableService interface {
 var currentProcesses sync.Map
 
 func PortForwardToService(s ForwardableService) {
-	printStatus(color.Green, "starting.", s)
+	printStatus(color.Yellow, "starting", s)
 
 	cmdArgs := []string{
 		fmt.Sprintf("-n=%s", s.Namespace()),
@@ -29,7 +29,7 @@ func PortForwardToService(s ForwardableService) {
 	}
 
 	if alreadyRunning := cmdRunning("kubectl", cmdArgs...); alreadyRunning {
-		printStatus(color.Yellow, "already in progress.", s)
+		printStatus(color.Blue, "already in progress", s)
 		return
 	}
 

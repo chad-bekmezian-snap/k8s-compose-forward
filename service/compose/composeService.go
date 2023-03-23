@@ -1,21 +1,21 @@
-package service
+package compose
 
 import (
 	"fmt"
 	"github.com/TwiN/go-color"
-	"github.com/chad-bekmezian-snap/k8s-port-forwarding/file"
+	"github.com/chad-bekmezian-snap/k8s-port-forwarding/file/compose"
 	"strconv"
 	"strings"
 )
 
-type ComposeService struct {
-	Spec         file.ComposeServiceSpec
+type Service struct {
+	Spec         compose.ComposeServiceSpec
 	K8sName      string
 	K8sNamespace string
 	K8sPort      int
 }
 
-func (s ComposeService) FromPort() int {
+func (s Service) FromPort() int {
 	var fromPort int
 
 	for _, p := range s.Spec.Ports {
@@ -38,14 +38,14 @@ func (s ComposeService) FromPort() int {
 	return fromPort
 }
 
-func (s ComposeService) ToPort() int {
+func (s Service) ToPort() int {
 	return s.K8sPort
 }
 
-func (s ComposeService) Name() string {
+func (s Service) Name() string {
 	return "service/" + s.K8sName
 }
 
-func (s ComposeService) Namespace() string {
+func (s Service) Namespace() string {
 	return s.K8sNamespace
 }
