@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/TwiN/go-color"
 	"os"
-	"os/exec"
 	"strings"
 	"sync"
 )
@@ -33,7 +32,7 @@ func PortForwardToService(s ForwardableService) {
 		return
 	}
 
-	cmd := exec.Command("kubectl", cmdArgs...)
+	cmd := executeCMD("kubectl", cmdArgs...)
 	cmd.Stdin = os.Stdin
 	cmd.Stderr = os.Stderr
 	if err := cmd.Start(); err != nil {
@@ -60,9 +59,9 @@ func cmdRunning(name string, args ...string) bool {
 	}
 
 	isDuplicateProcess := func() bool {
-		psCmd := exec.Command("ps", "aux")
-		grep := exec.Command("grep", fmt.Sprintf(`%s %s`, strings.TrimSpace(name), strings.Join(args, " ")))
-		removeGrep := exec.Command("grep", "-v", "grep")
+		psCmd := executeCMD("ps", "aux")
+		grep := executeCMD("grep", fmt.Sprintf(`%s %s`, strings.TrimSpace(name), strings.Join(args, " ")))
+		removeGrep := executeCMD("grep", "-v", "grep")
 
 		grepPipe, _ := psCmd.StdoutPipe()
 		defer grepPipe.Close()

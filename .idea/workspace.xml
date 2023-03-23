@@ -5,7 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1eea5cca-795f-4117-bf5d-3c1adcf6e919" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/k8s/dependencies.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/k8s/listServices.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/k8s/listServices.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/k8s/portForward.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/k8s/portForward.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/k8s/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/k8s/service.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +46,7 @@
     "WebServerToolWindowFactoryState": "false",
     "go.import.settings.migrated": "true",
     "go.sdk.automatically.set": "true",
-    "last_opened_file_path": "/Users/chad.bekmezian/Documents/Personal/GitHub/cs-port-forwarding",
+    "last_opened_file_path": "/Users/chad.bekmezian/Documents/Personal/GitHub/k8s-compose-forward",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
