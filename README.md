@@ -2,16 +2,13 @@
 
 ## Table of contents
 - [Description](#description)
-  - [compose-forward](#compose-forward)
-  - [manual-forward](#manual-forward)
-- [Using prebuilt binaries](#using-prebuilt-binaries)
-  - [auto-completion](#bonus--automatic-completion--composeforward-only-)
 - [Pre-requisites](#pre-requisites)
-- [Setup](#setup)
-- [Running](#running)
-  - [Running compose-forward](#run-compose-forward)
-  - [Running manual-forward](#run-manual-forward)
-- [Add an app to manual-forward](#adding-an-application-to-manual-forward)
+- [Using prebuilt binaries](#using-prebuilt-binaries)
+  - [Auto Completion](#bonus--automatic-completion--composeforward-only-)
+  - [Usage](#usage)
+  - [Supported CLI Options](#usage)
+- [Contributing](#contributing)
+
 ## Description
 The purpose of this repository is to enhance the ease with which a developer can debug and resolve issues in the beta environment.
 
@@ -23,7 +20,6 @@ from which applications will be sourced and all the data needed to start port-fo
 ## Pre-requisites
 1) Install [kubectl](https://kubernetes.io/docs/tasks/tools/)
 
-## Setup
 In order for this to work, you must have a valid `~/.kube/config` file. If you do not have one yet, you can create one like so:
 
 ```bash 
