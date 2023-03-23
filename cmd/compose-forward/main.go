@@ -11,12 +11,18 @@ import (
 
 func main() {
 	if listServices {
-		printAppsSilently(yamlPathFlag)
+		if err := printAppsSilently(yamlPathFlag); err != nil {
+			fmt.Println(color.Ize(color.Red, err))
+		}
 		return
 	}
 
 	if completions {
-		results, _ := compose.GetBashCompletions(yamlPathFlag)
+		results, err := compose.GetBashCompletions(yamlPathFlag)
+		if err != nil {
+			fmt.Println(color.Ize(color.Red, err))
+			return
+		}
 		fmt.Println(strings.Trim(fmt.Sprint(results), "[]"))
 		return
 	}
@@ -29,7 +35,7 @@ func main() {
 	nameToService, err := compose.Load(yamlPathFlag)
 	if err != nil {
 		fmt.Println(color.Ize(color.Red, err))
-		panic(err)
+		return
 	}
 
 	var wg sync.WaitGroup
