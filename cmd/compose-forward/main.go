@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 	"github.com/TwiN/go-color"
-	"github.com/chad-bekmezian-snap/k8s-port-forwarding/service/compose"
-	"github.com/chad-bekmezian-snap/k8s-port-forwarding/service/k8s"
+	"github.com/chad-bekmezian-snap/k8s-compose-forward/service/compose"
+	"github.com/chad-bekmezian-snap/k8s-compose-forward/service/k8s"
 	"strings"
 	"sync"
 )

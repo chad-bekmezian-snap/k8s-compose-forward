@@ -1,4 +1,4 @@
-module github.com/chad-bekmezian-snap/k8s-port-forwarding
+module github.com/chad-bekmezian-snap/k8s-compose-forward
 
 go 1.19
 

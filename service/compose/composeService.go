@@ -3,7 +3,7 @@ package compose
 import (
 	"fmt"
 	"github.com/TwiN/go-color"
-	"github.com/chad-bekmezian-snap/k8s-port-forwarding/file/compose"
+	"github.com/chad-bekmezian-snap/k8s-compose-forward/file/compose"
 	"strconv"
 	"strings"
 )

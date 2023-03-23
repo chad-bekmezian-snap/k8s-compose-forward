@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/TwiN/go-color"
-	"github.com/chad-bekmezian-snap/k8s-port-forwarding/service/compose"
+	"github.com/chad-bekmezian-snap/k8s-compose-forward/service/compose"
 	"os"
 	"sort"
 	"strings"
