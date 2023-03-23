@@ -3,7 +3,8 @@ package service
 import (
 	"fmt"
 	"github.com/TwiN/go-color"
-	"gopkg.in/yaml.v3"
+	"github.com/chad-bekmezian-snap/k8s-port-forwarding/file"
+	"github.com/chad-bekmezian-snap/k8s-port-forwarding/k8s"
 	"os"
 	"strings"
 )
@@ -13,33 +14,33 @@ var printLine = fmt.Println
 func discardPrintln(_ ...any) (n int, err error) { return 0, nil }
 
 // Load returns a map of docker-compose service names to the details needed to start up their dependencies.
-func Load(dockerComposePath string) (map[string]Service, error) {
+func Load(dockerComposePath string) (map[string]ComposeService, error) {
 	if isSilent := os.Getenv("FORWARD_SILENT"); isSilent == "true" {
 		printLine = discardPrintln
 	}
 
-	var parsedFile *dockerCompose
+	var parsedFile file.Compose
 	var err error
-	if parsedFile, err = loadDockerCompose(dockerComposePath); err != nil {
+	if parsedFile, err = file.ParseCompose(dockerComposePath); err != nil {
 		return nil, err
 	}
 
-	k8sServices, err := k8sServices()
+	k8sServices, err := k8s.ListServices()
 	if err != nil {
 		return nil, err
 	}
 
-	cleanServices(parsedFile.Services, k8sServices)
+	result := mapComposeToK8s(parsedFile, k8sServices)
 	printLine()
 	printLine()
 	printLine()
 	printLine()
 
-	return parsedFile.Services, nil
+	return result, nil
 }
 
 func GetBashCompletions(path string) (string, error) {
-	compose, err := loadDockerCompose(path)
+	compose, err := file.ParseCompose(path)
 	if err != nil {
 		return "", err
 	}
@@ -52,34 +53,24 @@ func GetBashCompletions(path string) (string, error) {
 	return strings.Join(resultArr, " "), nil
 }
 
-func loadDockerCompose(path string) (*dockerCompose, error) {
-	file, err := os.Open(path)
-	if err != nil {
-		return nil, err
-	}
+func mapComposeToK8s(composeFile file.Compose, k8sServices k8s.ServiceSlice) map[string]ComposeService {
+	result := make(map[string]ComposeService, len(composeFile.Services))
 
-	decoder := yaml.NewDecoder(file)
-	var parsedFile dockerCompose
-	if err := decoder.Decode(&parsedFile); err != nil {
-		return nil, err
-	}
-
-	return &parsedFile, nil
-}
-
-func cleanServices(services map[string]Service, k8sServices k8sSvcs) {
-	for serviceName, svc := range services {
+	for serviceName, svc := range composeFile.Services {
 		k8Svc, match := k8sServices.FindServiceByClosestMatchingName(serviceName)
 		if !match {
 			printLine(color.Ize(color.Blue, fmt.Sprintf("Unable to find a k8s service matching the name %s. Skipping.", serviceName)))
-			delete(services, serviceName)
 			continue
 		}
 
 		printLine(color.Ize(color.Green, fmt.Sprintf("Matching %s -> k8s/%s", serviceName, k8Svc.Detail.Name)))
-		svc.K8sName = k8Svc.Detail.Name
-		svc.K8sNamespace = k8Svc.Detail.Namespace
-		svc.K8sPort = k8Svc.Spec.Ports[0].Port
-		services[serviceName] = svc
+		result[serviceName] = ComposeService{
+			Spec:         svc,
+			K8sName:      k8Svc.Detail.Name,
+			K8sNamespace: k8Svc.Detail.Namespace,
+			K8sPort:      k8Svc.Spec.Ports[0].Port,
+		}
 	}
+
+	return result
 }

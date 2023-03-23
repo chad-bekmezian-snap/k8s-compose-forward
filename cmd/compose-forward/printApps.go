@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/TwiN/go-color"
-	"github.com/chad-bekmezian-snap/k8s-port-forwarding/compose/service"
+	"github.com/chad-bekmezian-snap/k8s-port-forwarding/service/compose"
 	"os"
 	"sort"
 	"strings"
@@ -11,7 +11,7 @@ import (
 
 func printAppsSilently(path string) {
 	_ = os.Setenv("FORWARD_SILENT", "true")
-	nameToService, err := service.Load(path)
+	nameToService, err := compose.Load(path)
 	if err != nil {
 		fmt.Println(color.Ize(color.Red, err))
 		panic(err)
@@ -19,7 +19,7 @@ func printAppsSilently(path string) {
 	printValidApplications(nameToService)
 }
 
-func printValidApplications(nameToService map[string]service.Service) {
+func printValidApplications(nameToService map[string]compose.Service) {
 	result := make(sort.StringSlice, 0, len(nameToService))
 	for key, _ := range nameToService {
 		result = append(result, " - "+key)

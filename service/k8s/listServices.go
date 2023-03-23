@@ -1,4 +1,4 @@
-package service
+package k8s
 
 import (
 	"encoding/json"
@@ -8,8 +8,8 @@ import (
 	"strings"
 )
 
-// kubectl get service --field-selector metadata.namespace!=default -A -o=json
-func k8sServices() (k8sSvcs, error) {
+// ListServices kubectl get service --field-selector metadata.namespace!=default -A -o=json
+func ListServices() (ServiceSlice, error) {
 	cmd := exec.Command("kubectl", "get", "service", "-A", "-o=json", "--field-selector=metadata.namespace!=default")
 	cmd.Stderr = os.Stderr
 	out, err := cmd.Output()
@@ -18,7 +18,9 @@ func k8sServices() (k8sSvcs, error) {
 		return nil, err
 	}
 
-	var result k8sGetServices
+	var result struct {
+		Services ServiceSlice `json:"items"`
+	}
 	if err := json.Unmarshal(out, &result); err != nil {
 		return nil, err
 	}
@@ -26,25 +28,7 @@ func k8sServices() (k8sSvcs, error) {
 	return result.Services, nil
 }
 
-type k8sSvc struct {
-	Kind   string `json:"kind"`
-	Detail struct {
-		Name            string `json:"name"`
-		Namespace       string `json:"namespace"`
-		ResourceVersion string `json:"resourceVersion"`
-		Uid             string `json:"uid"`
-	} `json:"metadata"`
-	Spec struct {
-		Ports []struct {
-			Port     int    `json:"port"`
-			Protocol string `json:"protocol"`
-		} `json:"ports"`
-	} `json:"spec"`
-}
-
-type k8sSvcs []k8sSvc
-
-func (s k8sSvcs) FindServiceByClosestMatchingName(v string, namespace ...string) (k8sSvc, bool) {
+func (s ServiceSlice) FindServiceByClosestMatchingName(v string, namespace ...string) (Service, bool) {
 	currentMatchIndex := -1
 
 ServiceLoop:
@@ -66,12 +50,8 @@ ServiceLoop:
 	}
 
 	if currentMatchIndex == -1 {
-		return k8sSvc{}, false
+		return Service{}, false
 	}
 
 	return s[currentMatchIndex], true
-}
-
-type k8sGetServices struct {
-	Services k8sSvcs `json:"items"`
 }

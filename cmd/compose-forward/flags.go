@@ -30,7 +30,7 @@ func (f *multiValueFlag) Set(value string) error {
 			continue
 		}
 
-		*f = append(*f, v)
+		*f = append(*f, strings.TrimSpace(v))
 	}
 	return nil
 }
@@ -62,19 +62,4 @@ func init() {
 
 	flag.Parse()
 	appArgs = flag.Args()
-
-	for i, v := range omitFlag {
-		v = strings.TrimSpace(v)
-		omitFlag[i] = v
-	}
-
-	for i, v := range appArgs {
-		v = strings.TrimSpace(v)
-		appArgs[i] = v
-	}
-
-	for i, v := range serviceFlag {
-		v = strings.TrimSpace(v)
-		serviceFlag[i] = v
-	}
 }

@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 	"github.com/TwiN/go-color"
-	"github.com/chad-bekmezian-snap/k8s-port-forwarding/compose/service"
-	"github.com/chad-bekmezian-snap/k8s-port-forwarding/forward"
+	"github.com/chad-bekmezian-snap/k8s-port-forwarding/service/compose"
+	"github.com/chad-bekmezian-snap/k8s-port-forwarding/service/k8s"
 	"strings"
 	"sync"
 )
@@ -16,7 +16,7 @@ func main() {
 	}
 
 	if completions {
-		results, _ := service.GetBashCompletions(yamlPathFlag)
+		results, _ := compose.GetBashCompletions(yamlPathFlag)
 		fmt.Println(strings.Trim(fmt.Sprint(results), "[]"))
 		return
 	}
@@ -26,7 +26,7 @@ func main() {
 		return
 	}
 
-	nameToService, err := service.Load(yamlPathFlag)
+	nameToService, err := compose.Load(yamlPathFlag)
 	if err != nil {
 		fmt.Println(color.Ize(color.Red, err))
 		panic(err)
@@ -50,7 +50,7 @@ func main() {
 	wg.Wait()
 }
 
-func portForwardForServices(services multiValueFlag, nameToService map[string]service.Service) {
+func portForwardForServices(services multiValueFlag, nameToService map[string]compose.Service) {
 	var wg sync.WaitGroup
 	for _, serviceName := range services {
 		svc, ok := nameToService[serviceName]
@@ -62,15 +62,15 @@ func portForwardForServices(services multiValueFlag, nameToService map[string]se
 		}
 
 		wg.Add(1)
-		go func(s service.Service) {
-			forward.ToService(s)
+		go func(s compose.Service) {
+			k8s.PortForwardToService(s)
 			wg.Done()
 		}(svc)
 	}
 	wg.Wait()
 }
 
-func portForwardForApps(apps multiValueFlag, nameToService map[string]service.Service) {
+func portForwardForApps(apps multiValueFlag, nameToService map[string]compose.Service) {
 	var wg sync.WaitGroup
 	for _, appName := range apps {
 		svc, ok := nameToService[appName]
@@ -81,9 +81,13 @@ func portForwardForApps(apps multiValueFlag, nameToService map[string]service.Se
 			return
 		}
 
-		for _, s := range svc.DependsOn {
+		if len(svc.Spec.DependsOn) == 0 {
+			fmt.Println(color.Ize(color.Yellow, fmt.Sprintf(`Application "%s" has no dependencies. Skipping.`, appName)))
+		}
+
+		for _, s := range svc.Spec.DependsOn {
 			if omitFlag.Contains(s) {
-				fmt.Println(color.Ize(color.Blue, "Skipping "+s))
+				fmt.Println(color.Ize(color.Blue, "Omitting "+s))
 				continue
 			}
 
@@ -94,8 +98,8 @@ func portForwardForApps(apps multiValueFlag, nameToService map[string]service.Se
 			}
 
 			wg.Add(1)
-			go func(s service.Service) {
-				forward.ToService(s)
+			go func(s compose.Service) {
+				k8s.PortForwardToService(s)
 				wg.Done()
 			}(depSvc)
 		}

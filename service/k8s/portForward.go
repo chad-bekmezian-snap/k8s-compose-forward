@@ -1,4 +1,4 @@
-package forward
+package k8s
 
 import (
 	"fmt"
@@ -9,9 +9,16 @@ import (
 	"sync"
 )
 
+type ForwardableService interface {
+	FromPort() int
+	ToPort() int
+	Name() string
+	Namespace() string
+}
+
 var currentProcesses sync.Map
 
-func ToService(s Service) {
+func PortForwardToService(s ForwardableService) {
 	printStatus(color.Green, "starting.", s)
 
 	cmdArgs := []string{
@@ -74,6 +81,6 @@ func cmdRunning(name string, args ...string) bool {
 	return isDuplicateProcess()
 }
 
-func printStatus(c, status string, s Service) {
+func printStatus(c, status string, s ForwardableService) {
 	fmt.Println(color.Ize(c, fmt.Sprintf("Port forwarding '%s' in namespace '%s' with ports '%d:%d' %s.", s.Name(), s.Namespace(), s.FromPort(), s.ToPort(), status)))
 }
